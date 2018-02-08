@@ -1,0 +1,22 @@
+{
+    "name": "x-express",
+    "version": "1.0.0",
+    "description": "express实践",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/garsonguo/x-express.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/garsonguo/x-express/issues"
+    },
+    "homepage": "https://github.com/garsonguo/x-express#readme",
+    "dependencies": {
+        "express": "^4.16.2"
+    }
+}
