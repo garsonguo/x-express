@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
+
+<head>
+    <title>
+    </title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+</head>
+
+<body>
+    <div>
+        <form action="/add" method="POST">
+            <label for=""><input type="text" name="title" value=""></label>
+            <input type="submit" value="添加">
+        </form>
+    </div>
+    <ul>
+        <% list.forEach(function(article){ %>
+            <li><%= article.title %></li>
+        <% }) %>
+    </ul>
+</body>
+
 </html>
