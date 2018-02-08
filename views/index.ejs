@@ -15,8 +15,8 @@
         </form>
     </div>
     <ul>
-        <% list.forEach(function(article){ %>
-            <li><%= article.title %></li>
+        <% list.forEach(function(article,index){ %>
+            <li><%= article.title %> <a href="/del?index=<%=index%>">删除</a></li>
         <% }) %>
     </ul>
 </body>

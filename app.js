@@ -34,6 +34,10 @@ app.post('/add', function(req, res) {
     db.add({ title: req.body.title });
     res.redirect('/');
 });
+app.get('/del', function(req, res) {
+    db.del(req.query.index);
+    res.redirect('/');
+});
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');

@@ -20,11 +20,12 @@ module.exports = {
         this.store();
     },
     del(index) {
-        repos[index] = null;
+        repos.splice(index, 1);
         this.store();
     },
     update(index, article) {
         repos[index] = article;
+        repos.splice(index, 1, article);
         this.store();
     }
 }
