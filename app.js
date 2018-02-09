@@ -3,6 +3,7 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var session = require('express-session');
 var bodyParser = require('body-parser');
 
 var db = require('./db');
@@ -22,11 +23,27 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+    secret: 'keyboard cat'
+}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //app.use('/', index);
 app.use('/users', users);
-
+app.post('/login', function(req, res) {
+    var name = req.body.name;
+    var password = req.body.password;
+    if (name === 'leo' && password === '123') {
+        req.session.logined = true;
+        res.send('sucess');
+    } else {
+        res.send('error');
+    }
+});
+app.get('/logout', function(req, res) {
+    req.session.logined = false;
+    res.send();
+});
 app.get('/', function(req, res) {
     res.render('index', { list: db.list() });
 });
