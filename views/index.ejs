@@ -5,20 +5,82 @@
     <title>
     </title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
-<body>
-    <div>
-        <form action="/add" method="POST">
-            <label for=""><input type="text" name="title" value=""></label>
-            <input type="submit" value="添加">
-        </form>
-    </div>
-    <ul>
-        <% list.forEach(function(article,index){ %>
-            <li><%= article.title %> <a href="/del?index=<%=index%>">删除</a></li>
-        <% }) %>
+<body class="container">
+    <ul class="nav nav-pills">
+        <li role="presentation"><a href="javascript:;" data-toggle="modal" data-target="#myModal">添加</a></li>
     </ul>
+    <form action="/add" method="POST">
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">标题</label>
+                            <input type="text" class="form-control title" name="title" id="title" placeholder="title">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">添加</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </form>
+    <!-- /.modal -->
+
+    <form action="/update" method="POST">
+        <div class="modal fade" id="myModal2" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">标题</label>
+                            <input type="hidden" id="index1" name="index">
+                            <input type="text" class="form-control title" name="title" id="title1" placeholder="title">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">更新</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    </form>
+    <!-- /.modal -->
+    <ul class="list-group">
+        <% list.forEach(function(article,index){ %>
+            <li class="list-group-item">
+                <%= article.title %> <a href="/del?index=<%=index%>">删除</a><a href="#" data-toggle="modal" data-target="#myModal2" onclick="edit(<%=index%>)">更新</a></li>
+            <% }) %>
+    </ul>
+
+    <script>
+        function edit(index) {
+            $.get('/get/' + index, function(result) {
+                $('#index1')[0].value = index;
+                $('#title1')[0].value = result.title;
+            })
+        }
+    </script>
 </body>
 
 </html>

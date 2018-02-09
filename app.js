@@ -30,6 +30,17 @@ app.use('/users', users);
 app.get('/', function(req, res) {
     res.render('index', { list: db.list() });
 });
+app.get('/get/:index', function(req, res) {
+    var index = req.params.index;
+    var article = db.get(index);
+    res.send(article);
+});
+app.post('/update', function(req, res) {
+    var title = req.body.title;
+    var index = req.body.index;
+    db.update(index, { title });
+    res.redirect('/');
+})
 app.post('/add', function(req, res) {
     db.add({ title: req.body.title });
     res.redirect('/');
